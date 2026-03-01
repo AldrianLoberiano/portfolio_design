@@ -144,7 +144,7 @@ export const projects: Project[] = [
     results: [
       "35% improvement in conversion rate",
       "28% reduction in cart abandonment",
-      "$2.4M in first-month revenue",
+      "₱2.4M in first-month revenue",
       "Shopify Partner Award finalist",
     ],
     featured: false,
