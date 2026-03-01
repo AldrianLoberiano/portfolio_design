@@ -28,7 +28,7 @@ export function Footer() {
                 className="text-white"
                 style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: "1.5rem", fontWeight: 700 }}
               >
-                JD
+                AL
               </span>
               <p
                 className="mt-4 text-white/40 max-w-sm"
@@ -98,7 +98,7 @@ export function Footer() {
             className="text-white/30"
             style={{ fontFamily: "Inter, sans-serif", fontSize: "0.8125rem" }}
           >
-            &copy; 2026 JD Studio. All rights reserved.
+            &copy; 2026 AL Studio. All rights reserved.
           </p>
           <p
             className="text-white/30"
