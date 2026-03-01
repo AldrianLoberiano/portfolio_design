@@ -179,3 +179,73 @@
     line-height: 1.5;
   }
 }
+
+/* ─── Light theme overrides ─────────────────────────────────────────── */
+/* Applied when data-theme="light" is set on <html> by ThemeContext     */
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* Page & Nav backgrounds */
+[data-theme="light"] .bg-\[#0a0a0a\] {
+  background-color: #f0ede8 !important;
+}
+[data-theme="light"] .bg-\[#0a0a0a\]\/80 {
+  background-color: rgba(240, 237, 232, 0.92) !important;
+}
+[data-theme="light"] .bg-\[#1a1a1a\] {
+  background-color: #e8e5e0 !important;
+}
+[data-theme="light"] option.bg-\[#1a1a1a\] {
+  background-color: #e8e5e0 !important;
+}
+
+/* Text */
+[data-theme="light"] .text-white {
+  color: #111111 !important;
+}
+[data-theme="light"] .text-white\/10 { color: rgba(17,17,17,0.12) !important; }
+[data-theme="light"] .text-white\/20 { color: rgba(17,17,17,0.25) !important; }
+[data-theme="light"] .text-white\/30 { color: rgba(17,17,17,0.35) !important; }
+[data-theme="light"] .text-white\/40 { color: rgba(17,17,17,0.5) !important; }
+[data-theme="light"] .text-white\/50 { color: rgba(17,17,17,0.6) !important; }
+[data-theme="light"] .text-white\/60 { color: rgba(17,17,17,0.65) !important; }
+[data-theme="light"] .placeholder\:text-white\/20::placeholder { color: rgba(17,17,17,0.3) !important; }
+
+/* Borders */
+[data-theme="light"] .border-white\/5  { border-color: rgba(0,0,0,0.07) !important; }
+[data-theme="light"] .border-white\/10 { border-color: rgba(0,0,0,0.1)  !important; }
+[data-theme="light"] .border-white\/15 { border-color: rgba(0,0,0,0.15) !important; }
+[data-theme="light"] .border-white\/20 { border-color: rgba(0,0,0,0.2)  !important; }
+[data-theme="light"] .border-white\/25 { border-color: rgba(0,0,0,0.25) !important; }
+[data-theme="light"] .focus\:border-white\/25:focus { border-color: rgba(0,0,0,0.3) !important; }
+
+/* Card / input backgrounds */
+[data-theme="light"] .bg-white\/\[0\.02\] { background-color: rgba(255,255,255,0.7) !important; }
+[data-theme="light"] .bg-white\/\[0\.03\] { background-color: rgba(255,255,255,0.8) !important; }
+[data-theme="light"] .bg-white\/\[0\.05\] { background-color: rgba(255,255,255,0.9) !important; }
+[data-theme="light"] .bg-white\/5        { background-color: rgba(0,0,0,0.04) !important; }
+[data-theme="light"] .bg-white\/10       { background-color: rgba(0,0,0,0.07) !important; }
+[data-theme="light"] .focus\:bg-white\/\[0\.05\]:focus { background-color: rgba(255,255,255,0.95) !important; }
+[data-theme="light"] .hover\:bg-white\/5:hover  { background-color: rgba(0,0,0,0.05) !important; }
+[data-theme="light"] .hover\:bg-white\/10:hover { background-color: rgba(0,0,0,0.07) !important; }
+
+/* Primary CTA buttons: keep them dark on light background */
+[data-theme="light"] .bg-white.text-\[#0a0a0a\] {
+  background-color: #111111 !important;
+  color: #f0ede8 !important;
+}
+[data-theme="light"] .hover\:bg-white\/90:hover {
+  background-color: rgba(17,17,17,0.85) !important;
+}
+
+/* Active nav indicator line */
+[data-theme="light"] .bg-white.h-px {
+  background-color: #111111 !important;
+}
+
+/* Hero dark overlay — darken slightly in light mode */
+[data-theme="light"] .bg-\[#0a0a0a\]\/60 {
+  background-color: rgba(240,237,232,0.45) !important;
+}
