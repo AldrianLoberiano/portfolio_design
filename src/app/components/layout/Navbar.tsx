@@ -60,7 +60,7 @@ export function Navbar() {
                 className="text-white tracking-[-0.02em]"
                 style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: "1.5rem", fontWeight: 700 }}
               >
-                JD
+                AL
               </span>
             </Link>
 
