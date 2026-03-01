@@ -252,7 +252,7 @@ export async function seedData() {
   await kv.set("settings:site", {
     name: "AL Studio",
     tagline: "Design engineer crafting digital experiences",
-    email: "aldriancayoloberiano@gmail.com",
+    email: "loberianorian@gmail.com",
     location: "Calauan, Laguna, Philippines",
     available: true,
     availableDate: "March 2026",
