@@ -6,7 +6,7 @@ import * as kv from "./kv_store.ts";
 import { seedData } from "./seed.ts";
 
 const resend = new Resend(
-  Deno.env.get("RESEND_API_KEY") ?? "re_CsPLZdQq_P4yG1vLT9hcKTy19u8hw6s8p"
+  Deno.env.get("RESEND_API_KEY")
 );
 
 const app = new Hono();
