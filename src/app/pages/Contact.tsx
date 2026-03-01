@@ -8,10 +8,22 @@ import {
   CheckCircle,
   AlertCircle,
   Loader2,
+  RefreshCw,
 } from "lucide-react";
 import { toast, Toaster } from "sonner";
 import { submitContact, type ApiError } from "../lib/api";
 import { useMutation } from "../hooks/useApi";
+
+// ── Simple math CAPTCHA ────────────────────────────────
+function generateCaptcha() {
+  const ops = ["+", "-", "×"] as const;
+  const op = ops[Math.floor(Math.random() * ops.length)];
+  let a = Math.floor(Math.random() * 9) + 1;
+  let b = Math.floor(Math.random() * 9) + 1;
+  if (op === "-") { a = Math.max(a, b) + 2; b = Math.min(a - 2, b); }
+  const answer = op === "+" ? a + b : op === "-" ? a - b : a * b;
+  return { question: `${a} ${op} ${b}`, answer };
+}
 
 const socialLinks = [
   { name: "Facebook", url: "https://www.facebook.com/its.adinggg" },
@@ -39,6 +51,9 @@ export function Contact() {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [captcha, setCaptcha] = useState(generateCaptcha);
+  const [captchaInput, setCaptchaInput] = useState("");
+  const [captchaError, setCaptchaError] = useState(false);
 
   const { mutate: sendMessage, isLoading: isSending, error: submitError } = useMutation(
     (data: typeof formData) => submitContact(data)
@@ -71,6 +86,16 @@ export function Contact() {
       return;
     }
 
+    // CAPTCHA check
+    if (parseInt(captchaInput, 10) !== captcha.answer) {
+      setCaptchaError(true);
+      toast.error("Incorrect security answer. Please try the new question.");
+      setCaptcha(generateCaptcha());
+      setCaptchaInput("");
+      return;
+    }
+    setCaptchaError(false);
+
     try {
       await sendMessage(formData);
       setIsSubmitted(true);
@@ -100,6 +125,9 @@ export function Contact() {
   const resetForm = () => {
     setIsSubmitted(false);
     setValidationErrors([]);
+    setCaptcha(generateCaptcha());
+    setCaptchaInput("");
+    setCaptchaError(false);
     setFormData({
       name: "",
       email: "",
@@ -363,6 +391,49 @@ export function Contact() {
                   />
                 </div>
 
+                {/* CAPTCHA */}
+                <div>
+                  <label
+                    className="block text-white/40 mb-2"
+                    style={{ fontFamily: "Inter, sans-serif", fontSize: "0.8125rem", fontWeight: 400 }}
+                  >
+                    Security Check *
+                  </label>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <div
+                      className="px-5 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-white select-none"
+                      style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: "1.125rem", fontWeight: 600, letterSpacing: "0.05em" }}
+                    >
+                      {captcha.question} = ?
+                    </div>
+                    <input
+                      type="number"
+                      value={captchaInput}
+                      onChange={(e) => { setCaptchaInput(e.target.value); setCaptchaError(false); }}
+                      placeholder="Answer"
+                      className={`w-28 px-4 py-3 rounded-xl border text-white bg-white/[0.03] placeholder:text-white/20 focus:outline-none transition-all duration-300 ${
+                        captchaError
+                          ? "border-red-500/50 bg-red-500/5 focus:border-red-500/60"
+                          : "border-white/10 focus:border-white/25 focus:bg-white/[0.05]"
+                      }`}
+                      style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => { setCaptcha(generateCaptcha()); setCaptchaInput(""); setCaptchaError(false); }}
+                      className="p-2.5 rounded-lg border border-white/10 text-white/30 hover:text-white/60 hover:border-white/20 transition-all duration-300"
+                      title="New question"
+                    >
+                      <RefreshCw size={14} />
+                    </button>
+                  </div>
+                  {captchaError && (
+                    <p className="mt-1.5 text-red-400/80" style={{ fontFamily: "Inter, sans-serif", fontSize: "0.8125rem" }}>
+                      Incorrect answer — a new question has been generated.
+                    </p>
+                  )}
+                </div>
+
                 <button
                   type="submit"
                   disabled={isSending}
@@ -405,7 +476,7 @@ export function Contact() {
               </h3>
               <div className="space-y-4">
                 <a
-                  href="mailto:aldriancayoloberiano@gmail.com"
+                  href="mailto:loberianorian@gmail.com"
                   className="flex items-center gap-3 text-white/60 hover:text-white transition-colors duration-300 group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
@@ -413,7 +484,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }}>
-                      aldriancayoloberiano@gmail.com
+                      loberianorian@gmail.com
                     </p>
                     <p
                       className="text-white/30"
