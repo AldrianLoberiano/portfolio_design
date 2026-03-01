@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { SearchModal } from "../shared/SearchModal";
 
 const navLinks = [
+  { name: "Home", path: "/" },
   { name: "Work", path: "/work" },
   { name: "About", path: "/about" },
   { name: "Contact", path: "/contact" },
@@ -66,27 +67,30 @@ export function Navbar() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-10">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`relative py-2 transition-colors duration-300 ${
-                    location.pathname.startsWith(link.path)
-                      ? "text-white"
-                      : "text-white/50 hover:text-white"
-                  }`}
-                  style={{ fontFamily: "Inter, sans-serif", fontSize: "0.875rem", fontWeight: 400, letterSpacing: "0.02em" }}
-                >
-                  {link.name}
-                  {location.pathname.startsWith(link.path) && (
-                    <motion.div
-                      layoutId="nav-indicator"
-                      className="absolute -bottom-0.5 left-0 right-0 h-px bg-white"
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = link.path === "/"
+                  ? location.pathname === "/"
+                  : location.pathname.startsWith(link.path);
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`relative py-2 transition-colors duration-300 ${
+                      isActive ? "text-white" : "text-white/50 hover:text-white"
+                    }`}
+                    style={{ fontFamily: "Inter, sans-serif", fontSize: "0.875rem", fontWeight: 400, letterSpacing: "0.02em" }}
+                  >
+                    {link.name}
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-indicator"
+                        className="absolute -bottom-0.5 left-0 right-0 h-px bg-white"
+                        transition={{ duration: 0.3 }}
+                      />
+                    )}
+                  </Link>
+                );
+              })}
             </div>
 
             {/* CTA + Mobile Toggle */}
@@ -130,32 +134,35 @@ export function Navbar() {
             className="fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col items-center justify-center"
           >
             <nav className="flex flex-col items-center gap-8">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.path}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ delay: index * 0.1, duration: 0.4 }}
-                >
-                  <Link
-                    to={link.path}
-                    className={`text-3xl transition-colors ${
-                      location.pathname.startsWith(link.path)
-                        ? "text-white"
-                        : "text-white/40 hover:text-white"
-                    }`}
-                    style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 500 }}
+              {navLinks.map((link, index) => {
+                const isActive = link.path === "/"
+                  ? location.pathname === "/"
+                  : location.pathname.startsWith(link.path);
+                return (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ delay: index * 0.1, duration: 0.4 }}
                   >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      to={link.path}
+                      className={`text-3xl transition-colors ${
+                        isActive ? "text-white" : "text-white/40 hover:text-white"
+                      }`}
+                      style={{ fontFamily: "Space Grotesk, sans-serif", fontWeight: 500 }}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                );
+              })}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
               >
                 <Link
                   to="/contact"
@@ -165,6 +172,7 @@ export function Navbar() {
                   Let's Talk
                 </Link>
               </motion.div>
+
             </nav>
           </motion.div>
         )}
