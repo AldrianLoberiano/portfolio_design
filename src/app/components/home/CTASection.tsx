@@ -50,11 +50,11 @@ export function CTASection() {
                 />
               </Link>
               <a
-                href="mailto:aldriancayoloberiano@gmail.com"
+                href="mailto:loberianorian@gmail.com"
                 className="text-white/40 hover:text-white transition-colors duration-300"
                 style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }}
               >
-                aldriancayoloberiano@gmail.com
+                loberianorian@gmail.com
               </a>
             </div>
           </div>
