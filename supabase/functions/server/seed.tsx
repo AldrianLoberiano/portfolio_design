@@ -250,10 +250,10 @@ export async function seedData() {
 
   // ─── Site Settings ───
   await kv.set("settings:site", {
-    name: "JD Studio",
+    name: "AL Studio",
     tagline: "Design engineer crafting digital experiences",
-    email: "hello@jdstudio.design",
-    location: "San Francisco, CA",
+    email: "aldriancayoloberiano@gmail.com",
+    location: "Calauan, Laguna, Philippines",
     available: true,
     availableDate: "March 2026",
     social: {
