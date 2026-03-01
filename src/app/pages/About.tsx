@@ -249,11 +249,10 @@ export function About() {
           />
           <div className="mt-8 flex flex-wrap gap-4">
             {[
-              { name: "Twitter / X", url: "#" },
-              { name: "LinkedIn", url: "#" },
-              { name: "Dribbble", url: "#" },
-              { name: "GitHub", url: "#" },
-              { name: "Read.cv", url: "#" },
+              { name: "Facebook", url: "https://www.facebook.com/its.adinggg" },
+              { name: "LinkedIn", url: "https://www.linkedin.com/in/aldriancayoloberiano/" },
+              { name: "GitHub", url: "https://github.com/AldrianLoberiano" },
+              { name: "Read.cv", url: "https://drive.google.com/drive/folders/1B49bYf-NvxiFTKHtYdXLeP41Yk-_fBVA?usp=sharing" },
             ].map((social, index) => (
               <motion.a
                 key={social.name}
