@@ -1,8 +1,13 @@
 import { Hono } from "npm:hono";
 import { cors } from "npm:hono/cors";
 import { logger } from "npm:hono/logger";
+import { Resend } from "npm:resend";
 import * as kv from "./kv_store.tsx";
 import { seedData } from "./seed.tsx";
+
+const resend = new Resend(
+  Deno.env.get("RESEND_API_KEY") ?? "re_CsPLZdQq_P4yG1vLT9hcKTy19u8hw6s8p"
+);
 
 const app = new Hono();
 
@@ -312,6 +317,48 @@ app.post("/make-server-fcdd5d30/contact", async (c) => {
     // Update submissions count
     const countData = (await kv.get("meta:contact_count")) || { count: 0 };
     await kv.set("meta:contact_count", { count: countData.count + 1 });
+
+    // ── Send emails via Resend (non-blocking) ──
+    try {
+      // 1. Notify portfolio owner
+      await resend.emails.send({
+        from: "onboarding@resend.dev",
+        to: "loberianorian@gmail.com",
+        subject: `New Contact Message from ${submission.name}`,
+        html: `
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
+            <h2 style="color:#111">New Contact Form Submission</h2>
+            <table style="width:100%;border-collapse:collapse">
+              <tr><td style="padding:8px;font-weight:bold;width:120px">Name</td><td style="padding:8px">${submission.name}</td></tr>
+              <tr style="background:#f9f9f9"><td style="padding:8px;font-weight:bold">Email</td><td style="padding:8px"><a href="mailto:${submission.email}">${submission.email}</a></td></tr>
+              <tr><td style="padding:8px;font-weight:bold">Company</td><td style="padding:8px">${submission.company || "—"}</td></tr>
+              <tr style="background:#f9f9f9"><td style="padding:8px;font-weight:bold">Service</td><td style="padding:8px">${submission.service || "—"}</td></tr>
+              <tr><td style="padding:8px;font-weight:bold">Budget</td><td style="padding:8px">${submission.budget || "—"}</td></tr>
+              <tr style="background:#f9f9f9"><td style="padding:8px;font-weight:bold;vertical-align:top">Message</td><td style="padding:8px;white-space:pre-wrap">${submission.message}</td></tr>
+            </table>
+            <p style="color:#888;font-size:12px;margin-top:24px">Submitted at ${submission.createdAt}</p>
+          </div>
+        `,
+      });
+
+      // 2. Confirmation to submitter
+      await resend.emails.send({
+        from: "onboarding@resend.dev",
+        to: submission.email,
+        subject: "Thanks for reaching out!",
+        html: `
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
+            <h2 style="color:#111">Thanks for your message, ${submission.name}!</h2>
+            <p>I've received your message and will get back to you within 24 hours.</p>
+            <blockquote style="border-left:3px solid #ccc;padding-left:16px;color:#555;margin:16px 0;white-space:pre-wrap">${submission.message}</blockquote>
+            <p style="color:#888;font-size:12px">— Aldrian Loberiano</p>
+          </div>
+        `,
+      });
+    } catch (emailError) {
+      // Email failure is non-critical — log and continue
+      console.log(`Email send error (non-critical): ${emailError}`);
+    }
 
     return c.json({
       message: "Contact form submitted successfully",
