@@ -1,4 +1,4 @@
-import { projectId, publicAnonKey } from "/utils/supabase/info";
+import { projectId, publicAnonKey } from "../../../utils/supabase/info";
 
 // ─────────────────────────────────────────────────────────────
 // API CLIENT — Centralized fetch with caching, retry, errors
