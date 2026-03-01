@@ -257,10 +257,9 @@ export async function seedData() {
     available: true,
     availableDate: "March 2026",
     social: {
-      twitter: "#",
-      linkedin: "#",
-      dribbble: "#",
-      github: "#",
+      facebook: "https://www.facebook.com/its.adinggg",
+      linkedin: "https://www.linkedin.com/in/aldriancayoloberiano/",
+      github: "https://github.com/AldrianLoberiano",
     },
     updatedAt: new Date().toISOString(),
   });
