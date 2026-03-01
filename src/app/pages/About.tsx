@@ -101,7 +101,7 @@ export function About() {
           >
             <div className="rounded-2xl overflow-hidden aspect-[4/5] bg-white/5">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1668262738576-642a950e8a95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGNyZWF0aXZlJTIwZGlyZWN0b3J8ZW58MXx8fHwxNzcxMTc5NjA3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src="https://avatars.githubusercontent.com/u/225561347?v=4"
                 alt="Portrait"
                 className="w-full h-full object-cover"
               />
