@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "lib": ["deno.window"],
+    "strict": false
+  },
+  "imports": {
+    "hono": "https://deno.land/x/hono@v4.6.20/mod.ts",
+    "hono/cors": "https://deno.land/x/hono@v4.6.20/middleware/cors/index.ts",
+    "hono/logger": "https://deno.land/x/hono@v4.6.20/middleware/logger/index.ts"
+  }
+}
