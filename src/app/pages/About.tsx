@@ -86,7 +86,7 @@ export function About() {
               <div className="flex items-center gap-2 text-white/40">
                 <Mail size={16} />
                 <span style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }}>
-                  aldriancayoloberiano@gmail.com
+                  loberianorian@gmail.com
                 </span>
               </div>
             </div>
