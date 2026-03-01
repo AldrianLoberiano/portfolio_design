@@ -330,10 +330,10 @@ export function Contact() {
                       style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }}
                     >
                       <option value="" className="bg-[#1a1a1a]">Select budget</option>
-                      <option value="10k-25k" className="bg-[#1a1a1a]">$10k - $25k</option>
-                      <option value="25k-50k" className="bg-[#1a1a1a]">$25k - $50k</option>
-                      <option value="50k-100k" className="bg-[#1a1a1a]">$50k - $100k</option>
-                      <option value="100k+" className="bg-[#1a1a1a]">$100k+</option>
+                      <option value="10k-25k" className="bg-[#1a1a1a]">₱10k - ₱25k</option>
+                      <option value="25k-50k" className="bg-[#1a1a1a]">₱25k - ₱50k</option>
+                      <option value="50k-100k" className="bg-[#1a1a1a]">₱50k - ₱100k</option>
+                      <option value="100k+" className="bg-[#1a1a1a]">₱100k+</option>
                     </select>
                   </div>
                 </div>
