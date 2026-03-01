@@ -406,7 +406,7 @@ export function Contact() {
               </h3>
               <div className="space-y-4">
                 <a
-                  href="mailto:hello@jdstudio.design"
+                  href="mailto:aldriancayoloberiano@gmail.com"
                   className="flex items-center gap-3 text-white/60 hover:text-white transition-colors duration-300 group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
@@ -414,7 +414,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }}>
-                      hello@jdstudio.design
+                      aldriancayoloberiano@gmail.com
                     </p>
                     <p
                       className="text-white/30"
@@ -430,7 +430,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }}>
-                      San Francisco, CA
+                      Calauan, Laguna, Philippines
                     </p>
                     <p
                       className="text-white/30"
