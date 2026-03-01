@@ -8,10 +8,9 @@ const footerLinks = {
     { name: "Contact", path: "/contact" },
   ],
   social: [
-    { name: "Twitter / X", url: "#" },
-    { name: "LinkedIn", url: "#" },
-    { name: "Dribbble", url: "#" },
-    { name: "GitHub", url: "#" },
+    { name: "Facebook", url: "https://www.facebook.com/its.adinggg" },
+    { name: "LinkedIn", url: "https://www.linkedin.com/in/aldriancayoloberiano/" },
+    { name: "GitHub", url: "https://github.com/AldrianLoberiano" },
   ],
 };
 
