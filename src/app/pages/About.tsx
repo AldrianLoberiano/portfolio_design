@@ -55,11 +55,7 @@ export function About() {
                 className="text-white/60"
                 style={{ fontFamily: "Inter, sans-serif", fontSize: "1.0625rem", lineHeight: 1.8 }}
               >
-                I'm a design engineer based in San Francisco with 8+ years of
-                experience crafting digital products for companies like Vercel,
-                Stripe, and Airbnb. I sit at the intersection of design and
-                engineering — equally comfortable in Figma as I am in a code
-                editor.
+               I am a design engineer based in Calauan, Laguna, Philippines, with 1 year of experience creating digital products. I work at the intersection of design and engineering, and I am comfortable using design tools like Figma as well as working in a code editor.
               </p>
               <p
                 className="text-white/60"
@@ -84,13 +80,13 @@ export function About() {
               <div className="flex items-center gap-2 text-white/40">
                 <MapPin size={16} />
                 <span style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }}>
-                  San Francisco, CA
+                  Calauan, Laguna, Philippines
                 </span>
               </div>
               <div className="flex items-center gap-2 text-white/40">
                 <Mail size={16} />
                 <span style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }}>
-                  hello@jdstudio.design
+                  aldriancayoloberiano@gmail.com
                 </span>
               </div>
             </div>
