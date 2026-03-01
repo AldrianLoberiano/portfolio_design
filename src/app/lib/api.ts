@@ -214,9 +214,8 @@ export interface SiteSettings {
   available: boolean;
   availableDate: string;
   social: {
-    twitter: string;
+    facebook: string;
     linkedin: string;
-    dribbble: string;
     github: string;
   };
 }
