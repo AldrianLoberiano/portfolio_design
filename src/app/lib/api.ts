@@ -44,6 +44,9 @@ export function invalidateCache(pattern?: string): void {
   }
 }
 
+// ── Status codes that mean the server/infra is down — no point retrying ──
+const GATEWAY_ERRORS = new Set([502, 503, 521, 522, 523, 524]);
+
 // ── Retry with exponential backoff ──
 async function fetchWithRetry(
   url: string,
@@ -67,7 +70,12 @@ async function fetchWithRetry(
         return response;
       }
 
-      // Retry server errors (5xx)
+      // Don't retry gateway/infra errors — server is down, retrying won't help
+      if (GATEWAY_ERRORS.has(response.status)) {
+        return response;
+      }
+
+      // Retry transient server errors (5xx)
       if (!response.ok && attempt < retries) {
         await new Promise((r) => setTimeout(r, delay * Math.pow(2, attempt)));
         continue;
@@ -82,6 +90,28 @@ async function fetchWithRetry(
   throw new Error("Max retries reached");
 }
 
+// ── Parse a response body safely — returns parsed JSON or throws a clean ApiError ──
+async function parseBody(response: Response): Promise<any> {
+  const text = await response.text();
+  // Detect HTML error pages (Cloudflare 521, nginx 502, etc.)
+  if (text.trimStart().startsWith("<")) {
+    throw new ApiError(
+      "The server is currently unavailable. Please try again later.",
+      response.status,
+      {}
+    );
+  }
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new ApiError(
+      `Unexpected response from server (status ${response.status}).`,
+      response.status,
+      {}
+    );
+  }
+}
+
 // ── Generic request helpers ──
 async function apiGet<T>(path: string, useCache = true, ttl = DEFAULT_TTL): Promise<T> {
   const cacheKey = `GET:${path}`;
@@ -93,7 +123,7 @@ async function apiGet<T>(path: string, useCache = true, ttl = DEFAULT_TTL): Prom
 
   const response = await fetchWithRetry(`${BASE_URL}${path}`);
   if (!response.ok) {
-    const errorBody = await response.json().catch(() => ({}));
+    const errorBody = await parseBody(response).catch((e) => { throw e; });
     throw new ApiError(
       errorBody.error || `Request failed: ${response.status}`,
       response.status,
@@ -101,7 +131,7 @@ async function apiGet<T>(path: string, useCache = true, ttl = DEFAULT_TTL): Prom
     );
   }
 
-  const data = await response.json();
+  const data = await parseBody(response);
   if (useCache) setCache(cacheKey, data, ttl);
   return data;
 }
@@ -112,7 +142,7 @@ async function apiPost<T>(path: string, body: any): Promise<T> {
     body: JSON.stringify(body),
   });
 
-  const data = await response.json();
+  const data = await parseBody(response);
   if (!response.ok) {
     throw new ApiError(data.error || `Request failed: ${response.status}`, response.status, data);
   }
@@ -125,7 +155,7 @@ async function apiPut<T>(path: string, body: any): Promise<T> {
     body: JSON.stringify(body),
   });
 
-  const data = await response.json();
+  const data = await parseBody(response);
   if (!response.ok) {
     throw new ApiError(data.error || `Request failed: ${response.status}`, response.status, data);
   }
@@ -137,7 +167,7 @@ async function apiDelete<T>(path: string): Promise<T> {
     method: "DELETE",
   });
 
-  const data = await response.json();
+  const data = await parseBody(response);
   if (!response.ok) {
     throw new ApiError(data.error || `Request failed: ${response.status}`, response.status, data);
   }
