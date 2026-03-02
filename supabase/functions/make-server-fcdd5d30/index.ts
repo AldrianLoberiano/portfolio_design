@@ -1,7 +1,12 @@
-import { Hono } from "npm:hono";
-import { cors } from "npm:hono/cors";
-import { logger } from "npm:hono/logger";
+import { Hono, type Context } from "hono";
+import { cors } from "hono/cors";
+import { logger } from "hono/logger";
 import { Resend } from "npm:resend";
+
+declare const Deno: {
+  env: { get(key: string): string | undefined };
+  serve(handler: (req: Request) => Response | Promise<Response>): void;
+};
 import * as kv from "./kv_store.ts";
 import { seedData } from "./seed.ts";
 
@@ -29,14 +34,14 @@ app.use(
 // ─────────────────────────────────────────────────────────────
 // HEALTH CHECK
 // ─────────────────────────────────────────────────────────────
-app.get("/make-server-fcdd5d30/health", (c) => {
+app.get("/make-server-fcdd5d30/health", (c: Context) => {
   return c.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
 // ─────────────────────────────────────────────────────────────
 // SEED DATA — Idempotent initial data population
 // ─────────────────────────────────────────────────────────────
-app.post("/make-server-fcdd5d30/admin/seed", async (c) => {
+app.post("/make-server-fcdd5d30/admin/seed", async (c: Context) => {
   try {
     const existing = await kv.get("meta:seeded");
     if (existing) {
@@ -59,7 +64,7 @@ app.post("/make-server-fcdd5d30/admin/seed", async (c) => {
 // ─────────────────────────────────────────────────────────────
 
 // GET /projects — List projects with optional filters
-app.get("/make-server-fcdd5d30/projects", async (c) => {
+app.get("/make-server-fcdd5d30/projects", async (c: Context) => {
   try {
     const category = c.req.query("category");
     const search = c.req.query("q");
@@ -126,7 +131,7 @@ app.get("/make-server-fcdd5d30/projects", async (c) => {
 });
 
 // GET /projects/:slug — Single project
-app.get("/make-server-fcdd5d30/projects/:slug", async (c) => {
+app.get("/make-server-fcdd5d30/projects/:slug", async (c: Context) => {
   try {
     const slug = c.req.param("slug");
     const project = await kv.get(`project:${slug}`);
@@ -170,7 +175,7 @@ app.get("/make-server-fcdd5d30/projects/:slug", async (c) => {
 });
 
 // POST /projects — Create project
-app.post("/make-server-fcdd5d30/projects", async (c) => {
+app.post("/make-server-fcdd5d30/projects", async (c: Context) => {
   try {
     const body = await c.req.json();
     const { title, slug, subtitle, category, tags, year, client, role, duration, thumbnail, images, description, challenge, solution, results, featured } = body;
@@ -217,7 +222,7 @@ app.post("/make-server-fcdd5d30/projects", async (c) => {
 });
 
 // PUT /projects/:slug — Update project
-app.put("/make-server-fcdd5d30/projects/:slug", async (c) => {
+app.put("/make-server-fcdd5d30/projects/:slug", async (c: Context) => {
   try {
     const slug = c.req.param("slug");
     const existing = await kv.get(`project:${slug}`);
@@ -244,7 +249,7 @@ app.put("/make-server-fcdd5d30/projects/:slug", async (c) => {
 });
 
 // DELETE /projects/:slug — Delete project
-app.delete("/make-server-fcdd5d30/projects/:slug", async (c) => {
+app.delete("/make-server-fcdd5d30/projects/:slug", async (c: Context) => {
   try {
     const slug = c.req.param("slug");
     const existing = await kv.get(`project:${slug}`);
@@ -264,7 +269,7 @@ app.delete("/make-server-fcdd5d30/projects/:slug", async (c) => {
 });
 
 // POST /projects/:slug/view — Track project view
-app.post("/make-server-fcdd5d30/projects/:slug/view", async (c) => {
+app.post("/make-server-fcdd5d30/projects/:slug/view", async (c: Context) => {
   try {
     const slug = c.req.param("slug");
     const current = (await kv.get(`views:${slug}`)) || { count: 0 };
@@ -284,7 +289,7 @@ app.post("/make-server-fcdd5d30/projects/:slug/view", async (c) => {
 // ─────────────────────────────────────────────────────────────
 
 // POST /contact — Submit contact form
-app.post("/make-server-fcdd5d30/contact", async (c) => {
+app.post("/make-server-fcdd5d30/contact", async (c: Context) => {
   try {
     const body = await c.req.json();
     const { name, email, company, budget, service, message } = body;
@@ -371,7 +376,7 @@ app.post("/make-server-fcdd5d30/contact", async (c) => {
 });
 
 // GET /contact/submissions — List contact submissions (admin)
-app.get("/make-server-fcdd5d30/contact/submissions", async (c) => {
+app.get("/make-server-fcdd5d30/contact/submissions", async (c: Context) => {
   try {
     const status = c.req.query("status");
     const allSubmissions: any[] = await kv.getByPrefix("contact:");
@@ -401,7 +406,7 @@ app.get("/make-server-fcdd5d30/contact/submissions", async (c) => {
 });
 
 // PUT /contact/:id/status — Update submission status
-app.put("/make-server-fcdd5d30/contact/:id/status", async (c) => {
+app.put("/make-server-fcdd5d30/contact/:id/status", async (c: Context) => {
   try {
     const id = c.req.param("id");
     const { status } = await c.req.json();
@@ -429,7 +434,7 @@ app.put("/make-server-fcdd5d30/contact/:id/status", async (c) => {
 // ─────────────────────────────────────────────────────────────
 
 // GET /testimonials — List all testimonials
-app.get("/make-server-fcdd5d30/testimonials", async (c) => {
+app.get("/make-server-fcdd5d30/testimonials", async (c: Context) => {
   try {
     const allTestimonials: any[] = await kv.getByPrefix("testimonial:");
     const sorted = allTestimonials
@@ -444,7 +449,7 @@ app.get("/make-server-fcdd5d30/testimonials", async (c) => {
 });
 
 // POST /testimonials — Create testimonial
-app.post("/make-server-fcdd5d30/testimonials", async (c) => {
+app.post("/make-server-fcdd5d30/testimonials", async (c: Context) => {
   try {
     const body = await c.req.json();
     const { name, role, company, quote } = body;
@@ -475,7 +480,7 @@ app.post("/make-server-fcdd5d30/testimonials", async (c) => {
 });
 
 // DELETE /testimonials/:id — Delete testimonial
-app.delete("/make-server-fcdd5d30/testimonials/:id", async (c) => {
+app.delete("/make-server-fcdd5d30/testimonials/:id", async (c: Context) => {
   try {
     const id = c.req.param("id");
     await kv.del(`testimonial:${id}`);
@@ -491,7 +496,7 @@ app.delete("/make-server-fcdd5d30/testimonials/:id", async (c) => {
 // ─────────────────────────────────────────────────────────────
 
 // GET /settings — Get site settings
-app.get("/make-server-fcdd5d30/settings", async (c) => {
+app.get("/make-server-fcdd5d30/settings", async (c: Context) => {
   try {
     const settings = await kv.get("settings:site");
     return c.json({ settings: settings || null });
@@ -502,7 +507,7 @@ app.get("/make-server-fcdd5d30/settings", async (c) => {
 });
 
 // PUT /settings — Update site settings
-app.put("/make-server-fcdd5d30/settings", async (c) => {
+app.put("/make-server-fcdd5d30/settings", async (c: Context) => {
   try {
     const body = await c.req.json();
     const current = (await kv.get("settings:site")) || {};
@@ -519,7 +524,7 @@ app.put("/make-server-fcdd5d30/settings", async (c) => {
 // SEARCH — Global search across all content
 // ─────────────────────────────────────────────────────────────
 
-app.get("/make-server-fcdd5d30/search", async (c) => {
+app.get("/make-server-fcdd5d30/search", async (c: Context) => {
   try {
     const query = c.req.query("q");
     if (!query || query.trim().length < 2) {
@@ -584,7 +589,7 @@ app.get("/make-server-fcdd5d30/search", async (c) => {
 // ANALYTICS — View counts and stats
 // ─────────────────────────────────────────────────────────────
 
-app.get("/make-server-fcdd5d30/admin/analytics", async (c) => {
+app.get("/make-server-fcdd5d30/admin/analytics", async (c: Context) => {
   try {
     const views: any[] = await kv.getByPrefix("views:");
     const contactCount = (await kv.get("meta:contact_count")) || { count: 0 };
