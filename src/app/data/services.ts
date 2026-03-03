@@ -136,38 +136,20 @@ export interface Experience {
 export const experiences: Experience[] = [
   {
     id: "1",
-    role: "Principal Designer",
-    company: "Independent Studio",
-    period: "2023 — Present",
+    role: "UI/UX Freelancer",
+    company: "Figma",
+    period: "2025 — Present",
     description:
-      "Leading design and creative direction for select clients across tech, fashion, and architecture. Focused on premium digital experiences.",
+      "Creating user interfaces and experiences for clients as a freelancer, using Figma to design clean, functional, and visually compelling digital products.",
     current: true,
   },
   {
     id: "2",
-    role: "Senior Design Engineer",
-    company: "Vercel",
-    period: "2021 — 2023",
+    role: "Frontend Developer",
+    company: "Freelance",
+    period: "2024",
     description:
-      "Designed and built design systems, marketing sites, and developer tools. Shipped Next.js docs redesign and Vercel dashboard v2.",
-    current: false,
-  },
-  {
-    id: "3",
-    role: "Lead Product Designer",
-    company: "Stripe",
-    period: "2019 — 2021",
-    description:
-      "Led the design of Stripe Dashboard and Stripe Checkout. Contributed to the Stripe design system and mentored junior designers.",
-    current: false,
-  },
-  {
-    id: "4",
-    role: "Product Designer",
-    company: "Airbnb",
-    period: "2017 — 2019",
-    description:
-      "Designed core booking flows and host management tools. Part of the team that shipped Airbnb Luxe and Airbnb Experiences redesign.",
+      "Built responsive and performant web interfaces using modern frontend technologies including React and Tailwind CSS.",
     current: false,
   },
 ];
