@@ -10,6 +10,9 @@ export interface Project {
   role: string;
   duration: string;
   thumbnail: string;
+  thumbnailGradient?: string;
+  designer?: string;
+  tools?: string[];
   images: string[];
   description: string;
   challenge: string;
@@ -36,14 +39,15 @@ export const projects: Project[] = [
     category: "Web Design",
     tags: ["React", "TypeScript", "Design System"],
     year: "2025",
-    client: "Nexus Labs",
-    role: "Lead Designer & Frontend Architect",
+    client: "",
+    role: "",
     duration: "4 months",
-    thumbnail:
-      "https://images.unsplash.com/photo-1763437153598-78b5579ddefa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3ZWJzaXRlJTIwZGVzaWduJTIwbW9ja3VwfGVufDF8fHx8MTc3MTE4MjE5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    designer: "Aldrian Loberiano",
+    tools: ["Figma", "React", "TypeScript"],
+    thumbnail: "/saas.png",
     images: [
-      "https://images.unsplash.com/photo-1763437153598-78b5579ddefa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3ZWJzaXRlJTIwZGVzaWduJTIwbW9ja3VwfGVufDF8fHx8MTc3MTE4MjE5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      "https://images.unsplash.com/photo-1638741631188-a42a58d5499c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXNoYm9hcmQlMjBhbmFseXRpY3MlMjBkYXJrJTIwdGhlbWV8ZW58MXx8fHwxNzcxMTc0NDcyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "/saas.png",
+      "/saas.png",
     ],
     description:
       "Nexus Platform is a comprehensive SaaS solution designed for creative agencies to manage projects, collaborate in real-time, and track performance metrics — all within a beautifully crafted interface.",
@@ -71,9 +75,9 @@ export const projects: Project[] = [
     role: "Product Designer",
     duration: "6 months",
     thumbnail:
-      "https://images.unsplash.com/photo-1661246627162-feb0269e0c07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBkZXNpZ24lMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzcxMTYxMzgyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "/doctor_hunt.png",
     images: [
-      "https://images.unsplash.com/photo-1661246627162-feb0269e0c07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBkZXNpZ24lMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzcxMTYxMzgyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      "/doctor_hunt.png",
     ],
     description:
       "Meridian is a wellness-focused fitness app that prioritizes mindful movement over metrics obsession. It combines AI-driven personalized workouts with calming aesthetics.",
