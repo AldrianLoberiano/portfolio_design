@@ -203,6 +203,9 @@ export interface Project {
   role: string;
   duration: string;
   thumbnail: string;
+  thumbnailGradient?: string;
+  designer?: string;
+  tools?: string[];
   images: string[];
   description: string;
   challenge: string;
