@@ -37,7 +37,14 @@ export function Work() {
     }
   );
 
-  const projects = data?.projects || staticProjects;
+  // Merge static-only fields (thumbnailGradient, designer, tools) into API results
+  const rawProjects = data?.projects || staticProjects;
+  const projects = rawProjects.map((p) => {
+    const staticMatch = staticProjects.find((s) => s.slug === p.slug);
+    return staticMatch
+      ? { ...p, thumbnailGradient: staticMatch.thumbnailGradient, designer: staticMatch.designer, tools: staticMatch.tools }
+      : p;
+  });
   const categories = data?.categories?.length ? data.categories : [...staticCategories];
 
   // Client-side fallback filtering when using static data
