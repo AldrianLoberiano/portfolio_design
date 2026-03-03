@@ -6,7 +6,7 @@ import { ProjectCard } from "../shared/ProjectCard";
 import { ProjectCardSkeleton } from "../shared/LoadingSkeleton";
 import { useApi } from "../../hooks/useApi";
 import { getProjects } from "../../lib/api";
-import { getFeaturedProjects } from "../../data/projects";
+import { getFeaturedProjects, projects as staticProjects } from "../../data/projects";
 
 export function FeaturedWork() {
   // Fetch from API with static data as fallback
@@ -17,7 +17,14 @@ export function FeaturedWork() {
     { fallback: { projects: staticFeatured, pagination: { page: 1, limit: 50, total: staticFeatured.length, totalPages: 1 }, categories: [] } }
   );
 
-  const featured = data?.projects || staticFeatured;
+  // Merge static-only fields (thumbnailGradient, designer, tools) into API results
+  const rawFeatured = data?.projects || staticFeatured;
+  const featured = rawFeatured.map((p) => {
+    const staticMatch = staticProjects.find((s) => s.slug === p.slug);
+    return staticMatch
+      ? { ...p, thumbnailGradient: staticMatch.thumbnailGradient, designer: staticMatch.designer, tools: staticMatch.tools }
+      : p;
+  });
 
   return (
     <section className="py-24 lg:py-32">
