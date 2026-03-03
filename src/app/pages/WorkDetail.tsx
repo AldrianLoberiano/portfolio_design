@@ -1,7 +1,7 @@
 import { useParams, Link, Navigate } from "react-router";
 import { useEffect } from "react";
 import { motion } from "motion/react";
-import { ArrowLeft, ArrowUpRight, Clock, User, Building2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Clock, User, Wrench } from "lucide-react";
 import { getProjectBySlug, projects as staticProjects } from "../data/projects";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { ProjectDetailSkeleton } from "../components/shared/LoadingSkeleton";
@@ -34,7 +34,18 @@ export function WorkDetail() {
     }
   );
 
-  const project = data?.project || staticProject;
+  // Merge API data with static data — API doesn't have thumbnailGradient/designer/tools/custom images,
+  // so always pull those from the static source to prevent them being wiped on reload.
+  const project = data?.project
+    ? {
+        ...data.project,
+        thumbnailGradient: staticProject?.thumbnailGradient,
+        designer: staticProject?.designer,
+        tools: staticProject?.tools,
+        thumbnail: data.project.thumbnail || staticProject?.thumbnail || "",
+        images: staticProject?.images ?? data.project.images,
+      }
+    : staticProject;
   const nextProject = data?.nextProject || (staticNext ? { slug: staticNext.slug, title: staticNext.title, subtitle: staticNext.subtitle } : null);
 
   // Track view on mount
@@ -123,30 +134,8 @@ export function WorkDetail() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6"
+          className="mt-10 flex flex-wrap gap-8"
         >
-          <div className="flex items-center gap-3 text-white/40">
-            <Building2 size={16} />
-            <div>
-              <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.75rem" }} className="text-white/30">
-                Client
-              </p>
-              <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }} className="text-white/60">
-                {project.client}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 text-white/40">
-            <User size={16} />
-            <div>
-              <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.75rem" }} className="text-white/30">
-                Role
-              </p>
-              <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }} className="text-white/60">
-                {project.role}
-              </p>
-            </div>
-          </div>
           <div className="flex items-center gap-3 text-white/40">
             <Clock size={16} />
             <div>
@@ -158,6 +147,32 @@ export function WorkDetail() {
               </p>
             </div>
           </div>
+          {project.designer && (
+            <div className="flex items-center gap-3 text-white/40">
+              <User size={16} />
+              <div>
+                <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.75rem" }} className="text-white/30">
+                  Designer
+                </p>
+                <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }} className="text-white/60">
+                  {project.designer}
+                </p>
+              </div>
+            </div>
+          )}
+          {project.tools && project.tools.length > 0 && (
+            <div className="flex items-center gap-3 text-white/40">
+              <Wrench size={16} />
+              <div>
+                <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.75rem" }} className="text-white/30">
+                  Tools
+                </p>
+                <p style={{ fontFamily: "Inter, sans-serif", fontSize: "0.9375rem" }} className="text-white/60">
+                  {project.tools.join(" · ")}
+                </p>
+              </div>
+            </div>
+          )}
         </motion.div>
 
         {/* Hero Image */}
@@ -167,11 +182,15 @@ export function WorkDetail() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="mt-12 rounded-2xl overflow-hidden aspect-[16/9] bg-white/5"
         >
-          <ImageWithFallback
-            src={project.images[0]}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
+          {project.thumbnailGradient ? (
+            <div className="w-full h-full" style={{ background: project.thumbnailGradient }} />
+          ) : (
+            <ImageWithFallback
+              src={project.images[0]}
+              alt={project.title}
+              className="w-full h-full object-cover"
+            />
+          )}
         </motion.div>
 
         {/* Content Grid */}
