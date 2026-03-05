@@ -41,7 +41,25 @@ export function ProjectCard({
             variant === "large" ? "aspect-[16/10]" : "aspect-[4/3]"
           }`}
         >
-          {project.thumbnailGradient ? (
+          {project.category === "Mobile" ? (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0d1117] to-[#1a1a2e]">
+              <div className="relative h-[88%] aspect-[9/19.5] bg-[#0d0d0d] rounded-[2rem] border-2 border-white/15 overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.7)] transition-transform duration-700 group-hover:scale-105">
+                {/* Dynamic Island */}
+                <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-[28%] h-[13px] bg-black rounded-full z-10" />
+                {/* Side buttons */}
+                <div className="absolute -right-[3px] top-[22%] w-[3px] h-8 bg-white/10 rounded-l-sm" />
+                <div className="absolute -left-[3px] top-[18%] w-[3px] h-6 bg-white/10 rounded-r-sm" />
+                <div className="absolute -left-[3px] top-[27%] w-[3px] h-10 bg-white/10 rounded-r-sm" />
+                <div className="absolute -left-[3px] top-[40%] w-[3px] h-10 bg-white/10 rounded-r-sm" />
+                {/* Screen */}
+                <ImageWithFallback
+                  src={project.thumbnail}
+                  alt={project.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          ) : project.thumbnailGradient ? (
             <div
               className="w-full h-full transition-transform duration-700 group-hover:scale-105"
               style={{ background: project.thumbnailGradient }}
