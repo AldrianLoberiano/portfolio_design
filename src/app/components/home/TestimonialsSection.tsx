@@ -2,18 +2,9 @@ import { motion } from "motion/react";
 import { Quote } from "lucide-react";
 import { testimonials as staticTestimonials } from "../../data/services";
 import { SectionHeader } from "../shared/SectionHeader";
-import { TestimonialSkeleton } from "../shared/LoadingSkeleton";
-import { useApi } from "../../hooks/useApi";
-import { getTestimonials } from "../../lib/api";
 
 export function TestimonialsSection() {
-  const { data, isLoading } = useApi(
-    () => getTestimonials(),
-    [],
-    { fallback: { testimonials: staticTestimonials } }
-  );
-
-  const testimonials = data?.testimonials?.length ? data.testimonials : staticTestimonials;
+  const testimonials = staticTestimonials;
 
   return (
     <section id="testimonials" className="py-24 lg:py-32 border-t border-white/5">
@@ -25,11 +16,7 @@ export function TestimonialsSection() {
         />
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {isLoading && !testimonials.length
-            ? Array.from({ length: 3 }).map((_, i) => (
-                <TestimonialSkeleton key={i} />
-              ))
-            : testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial, index) => (
                 <motion.div
                   key={testimonial.id}
                   initial={{ opacity: 0, y: 30 }}
@@ -65,7 +52,7 @@ export function TestimonialsSection() {
                         className="text-white/30"
                         style={{ fontFamily: "Inter, sans-serif", fontSize: "0.8125rem" }}
                       >
-                        {testimonial.role}, {testimonial.company}
+                        {testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ""}
                       </p>
                     </div>
                   </div>
