@@ -212,6 +212,7 @@ export interface Project {
   solution: string;
   results: string[];
   featured: boolean;
+  comingSoon?: boolean;
   order?: number;
   createdAt?: string;
   updatedAt?: string;
