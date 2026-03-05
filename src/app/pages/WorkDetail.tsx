@@ -182,10 +182,10 @@ export function WorkDetail() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className={`mt-12 rounded-2xl bg-white/5 ${
+          className={`mt-12 rounded-2xl bg-white/5 overflow-hidden ${
             project.category === "Mobile"
               ? "flex items-center justify-center py-16"
-              : "overflow-hidden aspect-[16/9]"
+              : ""
           }`}
         >
           {project.category === "Mobile" ? (
@@ -210,7 +210,7 @@ export function WorkDetail() {
             <ImageWithFallback
               src={project.images[0]}
               alt={project.title}
-              className="w-full h-full object-cover"
+              className="w-full h-auto"
             />
           )}
         </motion.div>
