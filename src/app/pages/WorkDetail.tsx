@@ -180,9 +180,29 @@ export function WorkDetail() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-12 rounded-2xl overflow-hidden aspect-[16/9] bg-white/5"
+          className={`mt-12 rounded-2xl bg-white/5 ${
+            project.category === "Mobile"
+              ? "flex items-center justify-center py-16"
+              : "overflow-hidden aspect-[16/9]"
+          }`}
         >
-          {project.thumbnailGradient ? (
+          {project.category === "Mobile" ? (
+            <div className="relative bg-[#0d0d0d] rounded-[3rem] border-[3px] border-white/15 overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.8)]" style={{ height: "520px", aspectRatio: "9/19.5" }}>
+              {/* Dynamic Island */}
+              <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-[28%] h-[15px] bg-black rounded-full z-10" />
+              {/* Side buttons */}
+              <div className="absolute -right-[4px] top-[22%] w-[4px] h-10 bg-white/10 rounded-l-sm" />
+              <div className="absolute -left-[4px] top-[18%] w-[4px] h-7 bg-white/10 rounded-r-sm" />
+              <div className="absolute -left-[4px] top-[27%] w-[4px] h-12 bg-white/10 rounded-r-sm" />
+              <div className="absolute -left-[4px] top-[40%] w-[4px] h-12 bg-white/10 rounded-r-sm" />
+              {/* Screen */}
+              <ImageWithFallback
+                src={project.images[0]}
+                alt={project.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+          ) : project.thumbnailGradient ? (
             <div className="w-full h-full" style={{ background: project.thumbnailGradient }} />
           ) : (
             <ImageWithFallback
@@ -296,18 +316,31 @@ export function WorkDetail() {
                 transition={{ duration: 0.6 }}
                 className="grid grid-cols-1 md:grid-cols-2 gap-4"
               >
-                {project.images.slice(1).map((image, i) => (
-                  <div
-                    key={i}
-                    className="rounded-2xl overflow-hidden aspect-[4/3] bg-white/5"
-                  >
-                    <ImageWithFallback
-                      src={image}
-                      alt={`${project.title} detail ${i + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
+                {project.images.slice(1).map((image, i) =>
+                  project.category === "Mobile" ? (
+                    <div key={i} className="rounded-2xl bg-white/5 flex items-center justify-center py-12">
+                      <div className="relative bg-[#0d0d0d] rounded-[2.5rem] border-[3px] border-white/15 overflow-hidden shadow-[0_16px_60px_rgba(0,0,0,0.7)]" style={{ height: "420px", aspectRatio: "9/19.5" }}>
+                        <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[28%] h-[13px] bg-black rounded-full z-10" />
+                        <ImageWithFallback
+                          src={image}
+                          alt={`${project.title} detail ${i + 1}`}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      key={i}
+                      className="rounded-2xl overflow-hidden aspect-[4/3] bg-white/5"
+                    >
+                      <ImageWithFallback
+                        src={image}
+                        alt={`${project.title} detail ${i + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )
+                )}
               </motion.div>
             )}
 
