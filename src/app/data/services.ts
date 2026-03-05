@@ -73,30 +73,11 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     id: "1",
-    name: "Sarah Chen",
-    role: "CEO",
-    company: "Nexus Labs",
-    quote:
-      "Working with this team transformed our product. The design system alone saved us hundreds of engineering hours, and our users consistently praise the experience.",
-    avatar: "SC",
-  },
-  {
-    id: "2",
-    name: "Marcus Rivera",
-    role: "Head of Product",
-    company: "Meridian Health",
-    quote:
-      "They didn't just design an app — they understood our users deeply. The attention to emotional design and wellness UX was unlike anything we'd seen.",
-    avatar: "MR",
-  },
-  {
-    id: "3",
-    name: "Elena Vasquez",
-    role: "Founder",
-    company: "Atelier Studio",
-    quote:
-      "Our rebrand has been transformative. Every detail was considered, from the subtle geometry in our mark to how our brand feels across digital and print.",
-    avatar: "EV",
+    name: "Viena",
+    role: "Client",
+    company: "",
+    quote: "Ang galing po kuya, malinis at mabilis po ang pagkagawa",
+    avatar: "V",
   },
 ];
 
