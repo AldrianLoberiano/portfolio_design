@@ -10,6 +10,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // Serve index.html for all routes in preview mode (SPA routing)
+  preview: {
+    historyApiFallback: true,
+  },
   resolve: {
     alias: {
       // Alias @ to the src directory
