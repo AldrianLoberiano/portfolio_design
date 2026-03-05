@@ -44,12 +44,16 @@ export function useApi<T>(
       if (options?.fallback) {
         // Non-fatal: static fallback is already in place
         console.warn("API unavailable, using static fallback:", err.message);
+        if (isMounted.current) {
+          setIsLoading(false);
+          // Don't set error — fallback data is being served successfully
+        }
       } else {
         console.error("API Error:", err);
-      }
-      if (isMounted.current) {
-        setError(err.message || "An unexpected error occurred");
-        setIsLoading(false);
+        if (isMounted.current) {
+          setError(err.message || "An unexpected error occurred");
+          setIsLoading(false);
+        }
       }
     }
   }, deps);
