@@ -277,7 +277,19 @@ export default function Beams({
   );
 
   return (
-    <Canvas dpr={[1, 2]} frameloop="always" className="beams-container">
+    <Canvas
+      dpr={[1, 1.5]}
+      frameloop="always"
+      className="beams-container"
+      gl={{ powerPreference: "high-performance", failIfMajorPerformanceCaveat: false }}
+      onCreated={({ gl }) => {
+        // Allow the browser to restore the WebGL context after a context-loss event
+        // instead of permanently discarding it (THREE.WebGLRenderer: Context Lost)
+        gl.domElement.addEventListener('webglcontextlost', (e) => {
+          e.preventDefault();
+        }, false);
+      }}
+    >
       <group rotation={[0, 0, degToRad(rotation)]}>
         <PlaneNoise
           ref={meshRef}
