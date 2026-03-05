@@ -37,29 +37,20 @@ export function Work() {
     }
   );
 
-  // Merge static-only fields (thumbnailGradient, designer, tools) into API results
-  const rawProjects = data?.projects || staticProjects;
-  const projects = rawProjects.map((p) => {
-    const staticMatch = staticProjects.find((s) => s.slug === p.slug);
-    return staticMatch
-      ? { ...p, thumbnailGradient: staticMatch.thumbnailGradient, designer: staticMatch.designer, tools: staticMatch.tools }
-      : p;
-  });
   const categories = data?.categories?.length ? data.categories : [...staticCategories];
 
-  // Client-side fallback filtering when using static data
-  const filteredProjects =
-    !data?.projects && (activeCategory !== "All" || debouncedSearch)
-      ? staticProjects.filter((p) => {
-          const matchesCategory = activeCategory === "All" || p.category === activeCategory;
-          const matchesSearch =
-            !debouncedSearch ||
-            p.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-            p.subtitle.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-            p.tags.some((t) => t.toLowerCase().includes(debouncedSearch.toLowerCase()));
-          return matchesCategory && matchesSearch;
-        })
-      : projects;
+  // Always use static data as the source of truth for project content.
+  // The API may have stale data (old slugs/titles), so we apply client-side filtering
+  // over staticProjects to ensure the displayed content is always up to date.
+  const filteredProjects = staticProjects.filter((p) => {
+    const matchesCategory = activeCategory === "All" || p.category === activeCategory;
+    const matchesSearch =
+      !debouncedSearch ||
+      p.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+      p.subtitle.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+      p.tags.some((t) => t.toLowerCase().includes(debouncedSearch.toLowerCase()));
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="pt-32 pb-24 lg:pb-32">
@@ -166,7 +157,7 @@ export function Work() {
 
         {/* Projects Grid */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {isLoading && !projects.length
+          {isLoading && !filteredProjects.length
             ? Array.from({ length: 4 }).map((_, i) => (
                 <ProjectCardSkeleton key={i} />
               ))
