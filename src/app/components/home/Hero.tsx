@@ -1,11 +1,10 @@
 import { motion } from "motion/react";
-import { ArrowDown } from "lucide-react";
 import { Link } from "react-router";
 import Beams from "./Beams";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Beams background */}
       <div className="absolute inset-0 z-0">
         <Beams
@@ -106,20 +105,7 @@ export function Hero() {
           </Link>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          >
-            <ArrowDown size={20} className="text-white/20" />
-          </motion.div>
-        </motion.div>
+
       </div>
     </section>
   );
