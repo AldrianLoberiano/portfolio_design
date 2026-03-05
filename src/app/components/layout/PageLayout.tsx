@@ -3,13 +3,9 @@ import { useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ScrollToTop } from "../shared/ScrollToTop";
-import { useDataInit } from "../../hooks/useDataInit";
 
 export function PageLayout() {
   const location = useLocation();
-
-  // Seed database on first load (idempotent)
-  useDataInit();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
