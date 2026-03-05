@@ -5,27 +5,26 @@ export async function seedData() {
   const projects = [
     {
       id: "proj-1",
-      slug: "nexus-platform",
-      title: "Nexus Platform",
-      subtitle: "A next-generation SaaS platform for creative teams",
+      slug: "schedulepro",
+      title: "SchedulePro",
+      subtitle: "Smart scheduling and calendar management for modern teams",
       category: "Web Design",
-      tags: ["React", "TypeScript", "Design System"],
+      tags: ["React", "TypeScript", "TailwindCSS", "Vite", "Radix UI"],
       year: "2025",
-      client: "Nexus Labs",
+      client: "SchedulePro",
       role: "Lead Designer & Frontend Architect",
       duration: "4 months",
       thumbnail:
-        "https://images.unsplash.com/photo-1763437153598-78b5579ddefa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3ZWJzaXRlJTIwZGVzaWduJTIwbW9ja3VwfGVufDF8fHx8MTc3MTE4MjE5OXww&ixlib=rb-4.1.0&q=80&w=1080",
+        "/saas.png",
       images: [
-        "https://images.unsplash.com/photo-1763437153598-78b5579ddefa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3ZWJzaXRlJTIwZGVzaWduJTIwbW9ja3VwfGVufDF8fHx8MTc3MTE4MjE5OXww&ixlib=rb-4.1.0&q=80&w=1080",
-        "https://images.unsplash.com/photo-1638741631188-a42a58d5499c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXNoYm9hcmQlMjBhbmFseXRpY3MlMjBkYXJrJTIwdGhlbWV8ZW58MXx8fHwxNzcxMTc0NDcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "/saas.png",
       ],
       description:
-        "Nexus Platform is a comprehensive SaaS solution designed for creative agencies to manage projects, collaborate in real-time, and track performance metrics — all within a beautifully crafted interface.",
+        "SchedulePro is a modern scheduling and calendar management SaaS built for teams that value clarity and efficiency. It streamlines appointment booking, meeting coordination, and availability management through an intuitive, fast interface — powered by React, TypeScript, TailwindCSS, Vite, and Radix UI.",
       challenge:
-        "Creative teams were drowning in fragmented tooling. They needed a unified platform that didn't sacrifice aesthetics for functionality. The existing solutions felt corporate and uninspiring.",
+        "Teams were wasting hours each week juggling disconnected calendar tools, manual booking links, and timezone confusion. Existing schedulers felt clunky, visually outdated, and lacked the flexibility modern distributed teams need.",
       solution:
-        "I designed and architected a modular platform with a custom design system featuring over 120 components. The interface uses a dark-first approach with carefully calibrated contrast ratios and micro-interactions that make every action feel intentional.",
+        "I designed and built a clean, component-driven scheduling platform using React and Radix UI primitives for accessibility, styled with TailwindCSS for rapid iteration, and bundled with Vite for blazing-fast performance. The result is a polished dark-mode-first interface with drag-and-drop scheduling, smart conflict detection, and a type-safe TypeScript foundation that scales.",
       results: [
         "40% increase in team productivity",
         "92% user satisfaction score",
@@ -39,26 +38,26 @@ export async function seedData() {
     },
     {
       id: "proj-2",
-      slug: "meridian-mobile",
-      title: "Meridian",
-      subtitle: "Fitness tracking reimagined for mindful movement",
+      slug: "doctor-hunt",
+      title: "DoctorHunt",
+      subtitle: "A mobile app connecting patients with doctors instantly",
       category: "Mobile",
-      tags: ["React Native", "iOS", "Health Tech"],
+      tags: ["Flutter", "Dart", "Firebase", "REST API"],
       year: "2025",
-      client: "Meridian Health",
-      role: "Product Designer",
+      client: "DoctorHunt",
+      role: "Mobile App Designer & Developer",
       duration: "6 months",
       thumbnail:
-        "https://images.unsplash.com/photo-1661246627162-feb0269e0c07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBkZXNpZ24lMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzcxMTYxMzgyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "/doctor_hunt.png",
       images: [
-        "https://images.unsplash.com/photo-1661246627162-feb0269e0c07?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBkZXNpZ24lMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzcxMTYxMzgyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "/doctor_hunt.png",
       ],
       description:
-        "Meridian is a wellness-focused fitness app that prioritizes mindful movement over metrics obsession.",
+        "DoctorHunt is a healthcare mobile app built with Flutter that bridges the gap between patients and medical professionals. It enables users to search for nearby doctors by specialty, book appointments in real time, view detailed doctor profiles, and receive push notifications for upcoming visits — all within a clean, accessible interface designed for users of all ages.",
       challenge:
-        "Most fitness apps create anxiety through gamification and social comparison. Meridian needed to encourage healthy movement while maintaining a peaceful, pressure-free experience.",
+        "Patients often struggle to find the right doctor quickly, especially in urgent situations. Existing healthcare apps are cluttered, slow, and require too many steps before a booking can be made. The challenge was to design a mobile experience that feels approachable and fast while handling complex data like doctor availability, specializations, and location-based filtering.",
       solution:
-        "I crafted a serene visual language with soft gradients, organic shapes, and thoughtful typography. The UX removes competitive elements and replaces them with personal reflection and gentle progress tracking.",
+        "I designed and built the app end-to-end using Flutter and Dart for a smooth cross-platform experience on both Android and iOS. Firebase powers real-time appointment syncing and push notifications. The UI prioritizes clarity — a search-first home screen, card-based doctor profiles with ratings and availability chips, and a streamlined one-screen booking flow that reduces friction from discovery to confirmed appointment.",
       results: [
         "4.8 App Store rating",
         "200K downloads in 3 months",
