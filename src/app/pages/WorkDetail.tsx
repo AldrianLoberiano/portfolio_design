@@ -14,7 +14,10 @@ export function WorkDetail() {
   // Static fallback
   const staticProject = slug ? getProjectBySlug(slug) : undefined;
   const staticIndex = slug ? staticProjects.findIndex((p) => p.slug === slug) : -1;
-  const staticNext = staticIndex >= 0 ? staticProjects[(staticIndex + 1) % staticProjects.length] : null;
+  // Skip comingSoon projects when finding the next navigable project
+  const navigableProjects = staticProjects.filter((p) => !p.comingSoon);
+  const navigableIndex = staticProject ? navigableProjects.findIndex((p) => p.slug === slug) : -1;
+  const staticNext = navigableIndex >= 0 ? navigableProjects[(navigableIndex + 1) % navigableProjects.length] : null;
 
   // API fetch — skip when static data covers everything already
   const { data, isLoading, error } = useApi(
