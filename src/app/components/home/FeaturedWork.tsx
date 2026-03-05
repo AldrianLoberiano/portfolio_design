@@ -39,11 +39,7 @@ export function FeaturedWork() {
 
         {/* Project Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {isLoading && !data?.projects?.length
-            ? Array.from({ length: 4 }).map((_, i) => (
-                <ProjectCardSkeleton key={i} />
-              ))
-            : featured.map((project, index) => (
+          {featured.map((project, index) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
