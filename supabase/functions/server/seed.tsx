@@ -249,7 +249,7 @@ export async function seedData() {
 
   // ─── Site Settings ───
   await kv.set("settings:site", {
-    name: "AL Studio",
+    name: "AL",
     tagline: "Design engineer crafting digital experiences",
     email: "loberianorian@gmail.com",
     location: "Calauan, Laguna, Philippines",
