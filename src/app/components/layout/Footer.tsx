@@ -97,7 +97,7 @@ export function Footer() {
             className="text-white/30"
             style={{ fontFamily: "Inter, sans-serif", fontSize: "0.8125rem" }}
           >
-            &copy; 2026 AL Studio. All rights reserved.
+            &copy; 2026 AL. All rights reserved.
           </p>
           <p
             className="text-white/30"
