@@ -71,26 +71,26 @@ export async function seedData() {
     },
     {
       id: "proj-3",
-      slug: "atelier-brand",
-      title: "Atelier Studio",
-      subtitle: "Complete brand identity for a luxury design studio",
-      category: "Branding",
-      tags: ["Brand Strategy", "Visual Identity", "Print"],
-      year: "2024",
-      client: "Atelier Studio",
-      role: "Brand Designer",
-      duration: "3 months",
+      slug: "pokemon",
+      title: "pokemon",
+      subtitle: "Pokemon",
+      category: "Web Design",
+      tags: ["HTML/CSS/JavaScript","TypeScript", "TailwindCSS","Vite", "PostgresSQL/MySQL", ],
+      year: "2023",
+      client: "Pokemon Trainer",
+      role: "Trading Card Game Player",
+      duration: "1 month",
       thumbnail:
-        "https://images.unsplash.com/photo-1727755868077-22f0d2ff8353?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmFuZCUyMGlkZW50aXR5JTIwZGVzaWduJTIwbWluaW1hbHxlbnwxfHx8fDE3NzEyMTg1Njl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "/pokemon.png",
       images: [
-        "https://images.unsplash.com/photo-1727755868077-22f0d2ff8353?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmFuZCUyMGlkZW50aXR5JTIwZGVzaWduJTIwbWluaW1hbHxlbnwxfHx8fDE3NzEyMTg1Njl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        "/pokemon.png",
       ],
       description:
-        "A comprehensive brand identity system for Atelier Studio, a high-end interior design firm known for their minimalist approach to luxury spaces.",
+        "This is a type of game where the user can add, edit, and manage their Pokemon collection, with special features of trades and history who own the pokemon last time.",
       challenge:
-        "The studio's old branding didn't reflect the sophistication of their work. They needed an identity system that felt premium without being pretentious.",
+        "You can add new features reagarding to your wants, user can update their pokemon depends on what they like and what they want.",
       solution:
-        "I developed a restrained but expressive visual system built on precise geometry, a refined color palette, and custom typography treatments.",
+        "Some of the features I developed are functionable and learn how the game works and you can make another features depends on you.",
       results: [
         "300% increase in brand recognition",
         "Featured in Brand New",
