@@ -4,7 +4,9 @@ import { projectId, publicAnonKey } from "../../../utils/supabase/info";
 // API CLIENT — Centralized fetch with caching, retry, errors
 // ─────────────────────────────────────────────────────────────
 
-const BASE_URL = `https://${projectId}.supabase.co/functions/v1/make-server-fcdd5d30`;
+const BASE_URL = projectId
+  ? `https://${projectId}.supabase.co/functions/v1/make-server-fcdd5d30`
+  : null;
 
 // ── In-memory cache with TTL ──
 interface CacheEntry<T> {
@@ -114,6 +116,8 @@ async function parseBody(response: Response): Promise<any> {
 
 // ── Generic request helpers ──
 async function apiGet<T>(path: string, useCache = true, ttl = DEFAULT_TTL): Promise<T> {
+  if (!BASE_URL) throw new ApiError("Supabase project ID not configured.", 0, {});
+
   const cacheKey = `GET:${path}`;
 
   if (useCache) {
@@ -137,6 +141,7 @@ async function apiGet<T>(path: string, useCache = true, ttl = DEFAULT_TTL): Prom
 }
 
 async function apiPost<T>(path: string, body: any): Promise<T> {
+  if (!BASE_URL) throw new ApiError("Supabase project ID not configured.", 0, {});
   const response = await fetchWithRetry(`${BASE_URL}${path}`, {
     method: "POST",
     body: JSON.stringify(body),
@@ -150,6 +155,7 @@ async function apiPost<T>(path: string, body: any): Promise<T> {
 }
 
 async function apiPut<T>(path: string, body: any): Promise<T> {
+  if (!BASE_URL) throw new ApiError("Supabase project ID not configured.", 0, {});
   const response = await fetchWithRetry(`${BASE_URL}${path}`, {
     method: "PUT",
     body: JSON.stringify(body),
@@ -163,6 +169,7 @@ async function apiPut<T>(path: string, body: any): Promise<T> {
 }
 
 async function apiDelete<T>(path: string): Promise<T> {
+  if (!BASE_URL) throw new ApiError("Supabase project ID not configured.", 0, {});
   const response = await fetchWithRetry(`${BASE_URL}${path}`, {
     method: "DELETE",
   });
@@ -212,6 +219,7 @@ export interface Project {
   solution: string;
   results: string[];
   featured: boolean;
+  comingSoon?: boolean;
   order?: number;
   createdAt?: string;
   updatedAt?: string;

@@ -24,6 +24,9 @@ export function useApi<T>(
 
   const fetchData = useCallback(async () => {
     if (options?.enabled === false) {
+      if (options.fallback !== undefined) {
+        setData(options.fallback);
+      }
       setIsLoading(false);
       return;
     }
@@ -38,13 +41,18 @@ export function useApi<T>(
         setIsLoading(false);
       }
     } catch (err: any) {
-      console.error("API Error:", err);
-      if (isMounted.current) {
-        setError(err.message || "An unexpected error occurred");
-        setIsLoading(false);
-        // Keep fallback data if available
-        if (options?.fallback && !data) {
-          setData(options.fallback);
+      if (options?.fallback) {
+        // Non-fatal: static fallback is already in place
+        console.warn("API unavailable, using static fallback:", err.message);
+        if (isMounted.current) {
+          setIsLoading(false);
+          // Don't set error — fallback data is being served successfully
+        }
+      } else {
+        console.error("API Error:", err);
+        if (isMounted.current) {
+          setError(err.message || "An unexpected error occurred");
+          setIsLoading(false);
         }
       }
     }

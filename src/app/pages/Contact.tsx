@@ -101,6 +101,34 @@ export function Contact() {
       setIsSubmitted(true);
       toast.success("Message sent! I'll get back to you within 24 hours.");
     } catch (err: any) {
+      // If no backend is configured, fall back to mailto so the message still goes through
+      const isConfigError =
+        err?.status === 0 ||
+        (err?.message && (
+          err.message.includes("not configured") ||
+          err.message.includes("project ID")
+        ));
+      if (isConfigError) {
+        const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
+        const body = encodeURIComponent(
+          [
+            `Name: ${formData.name}`,
+            `Email: ${formData.email}`,
+            `Company: ${formData.company || "N/A"}`,
+            `Budget: ${formData.budget || "N/A"}`,
+            `Service: ${formData.service || "N/A"}`,
+            ``,
+            `Message:`,
+            formData.message,
+          ].join("\n")
+        );
+        const a = document.createElement("a");
+        a.href = `mailto:loberianorian@gmail.com?subject=${subject}&body=${body}`;
+        a.click();
+        setIsSubmitted(true);
+        toast.success("Opening your email client to send the message.");
+        return;
+      }
       // Show server validation errors if available
       if (err.body?.errors) {
         setValidationErrors(err.body.errors);

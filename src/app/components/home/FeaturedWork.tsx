@@ -3,22 +3,10 @@ import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { SectionHeader } from "../shared/SectionHeader";
 import { ProjectCard } from "../shared/ProjectCard";
-import { ProjectCardSkeleton } from "../shared/LoadingSkeleton";
-import { useApi } from "../../hooks/useApi";
-import { getProjects } from "../../lib/api";
 import { getFeaturedProjects } from "../../data/projects";
 
 export function FeaturedWork() {
-  // Fetch from API with static data as fallback
-  const staticFeatured = getFeaturedProjects();
-  const { data, isLoading } = useApi(
-    () => getProjects({ featured: true }),
-    [],
-    { fallback: { projects: staticFeatured, pagination: { page: 1, limit: 50, total: staticFeatured.length, totalPages: 1 }, categories: [] } }
-  );
-
-  // Always use static data as the source of truth so API's stale data never overrides content.
-  const featured = staticFeatured;
+  const featured = getFeaturedProjects();
 
   return (
     <section className="py-24 lg:py-32">
@@ -51,11 +39,7 @@ export function FeaturedWork() {
 
         {/* Project Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {isLoading && !data?.projects?.length
-            ? Array.from({ length: 4 }).map((_, i) => (
-                <ProjectCardSkeleton key={i} />
-              ))
-            : featured.map((project, index) => (
+          {featured.map((project, index) => (
                 <ProjectCard
                   key={project.id}
                   project={project}

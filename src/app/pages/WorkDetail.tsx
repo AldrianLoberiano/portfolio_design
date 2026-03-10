@@ -14,14 +14,17 @@ export function WorkDetail() {
   // Static fallback
   const staticProject = slug ? getProjectBySlug(slug) : undefined;
   const staticIndex = slug ? staticProjects.findIndex((p) => p.slug === slug) : -1;
-  const staticNext = staticIndex >= 0 ? staticProjects[(staticIndex + 1) % staticProjects.length] : null;
+  // Skip comingSoon projects when finding the next navigable project
+  const navigableProjects = staticProjects.filter((p) => !p.comingSoon);
+  const navigableIndex = staticProject ? navigableProjects.findIndex((p) => p.slug === slug) : -1;
+  const staticNext = navigableIndex >= 0 ? navigableProjects[(navigableIndex + 1) % navigableProjects.length] : null;
 
-  // API fetch
+  // API fetch — skip when static data covers everything already
   const { data, isLoading, error } = useApi(
     () => getProject(slug!),
     [slug],
     {
-      enabled: !!slug,
+      enabled: !!slug && !staticProject,
       fallback: staticProject
         ? {
             project: staticProject,
@@ -34,18 +37,20 @@ export function WorkDetail() {
     }
   );
 
-  // Merge API data with static data — API doesn't have thumbnailGradient/designer/tools/custom images,
-  // so always pull those from the static source to prevent them being wiped on reload.
-  const project = data?.project
-    ? {
-        ...data.project,
-        thumbnailGradient: staticProject?.thumbnailGradient,
-        designer: staticProject?.designer,
-        tools: staticProject?.tools,
-        thumbnail: data.project.thumbnail || staticProject?.thumbnail || "",
-        images: staticProject?.images ?? data.project.images,
-      }
-    : staticProject;
+  // When staticProject exists, API is disabled — use static directly to avoid stale data
+  // from previous navigation bleeding through the data state.
+  const project = staticProject
+    ? staticProject
+    : data?.project
+      ? {
+          ...data.project,
+          thumbnailGradient: staticProject?.thumbnailGradient,
+          designer: staticProject?.designer,
+          tools: staticProject?.tools,
+          thumbnail: data.project.thumbnail || staticProject?.thumbnail || "",
+          images: staticProject?.images ?? data.project.images,
+        }
+      : null;
   const nextProject = data?.nextProject || (staticNext ? { slug: staticNext.slug, title: staticNext.title, subtitle: staticNext.subtitle } : null);
 
   // Track view on mount
@@ -180,10 +185,10 @@ export function WorkDetail() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className={`mt-12 rounded-2xl bg-white/5 ${
+          className={`mt-12 rounded-2xl bg-white/5 overflow-hidden ${
             project.category === "Mobile"
               ? "flex items-center justify-center py-16"
-              : "overflow-hidden aspect-[16/9]"
+              : ""
           }`}
         >
           {project.category === "Mobile" ? (
@@ -208,7 +213,7 @@ export function WorkDetail() {
             <ImageWithFallback
               src={project.images[0]}
               alt={project.title}
-              className="w-full h-full object-cover"
+              className="w-full h-auto"
             />
           )}
         </motion.div>

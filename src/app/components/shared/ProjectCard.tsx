@@ -24,7 +24,7 @@ export function ProjectCard({
     setIsLiked((prev) => !prev);
   };
 
-  return (
+  const cardContent = (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -32,8 +32,8 @@ export function ProjectCard({
       transition={{ duration: 0.7, delay: index * 0.1 }}
     >
       <Link
-        to={`/work/${project.slug}`}
-        className="group block"
+        to={project.comingSoon ? "#" : `/work/${project.slug}`}
+        className={`group block${project.comingSoon ? " pointer-events-none" : ""}`}
       >
         {/* Image */}
         <div
@@ -71,6 +71,18 @@ export function ProjectCard({
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           )}
+          {/* Coming Soon overlay */}
+          {project.comingSoon && (
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm rounded-2xl">
+              <span
+                className="px-4 py-1.5 rounded-full border border-white/20 bg-white/10 text-white/80 tracking-[0.12em] uppercase"
+                style={{ fontFamily: "Inter, sans-serif", fontSize: "0.75rem", fontWeight: 500 }}
+              >
+                Coming Soon
+              </span>
+            </div>
+          )}
+
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Like button */}
@@ -126,4 +138,10 @@ export function ProjectCard({
       </Link>
     </motion.div>
   );
+
+  if (project.comingSoon) {
+    return <div className="cursor-default">{cardContent}</div>;
+  }
+
+  return cardContent;
 }

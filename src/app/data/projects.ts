@@ -19,6 +19,7 @@ export interface Project {
   solution: string;
   results: string[];
   featured: boolean;
+  comingSoon?: boolean;
 }
 
 export const categories = [
@@ -38,7 +39,7 @@ export const projects: Project[] = [
     subtitle: "Smart scheduling and calendar management for modern teams",
     category: "Web Design",
     tags: ["React", "TypeScript", "TailwindCSS", "Vite", "Radix UI"],
-    year: "2025",
+    year: "2026",
     client: "",
     role: "",
     duration: "4 months",
@@ -69,7 +70,7 @@ export const projects: Project[] = [
     subtitle: "A mobile app connecting patients with doctors instantly",
     category: "Mobile",
     tags: ["Flutter", "Dart", "Firebase", "REST API"],
-    year: "2025",
+    year: "2023",
     client: "DoctorHunt",
     role: "Mobile App Designer & Developer",
     duration: "6 months",
@@ -123,6 +124,7 @@ export const projects: Project[] = [
       "Won Red Dot Design Award",
     ],
     featured: true,
+    comingSoon: true,
   },
   {
     id: "4",
@@ -153,6 +155,7 @@ export const projects: Project[] = [
       "Shopify Partner Award finalist",
     ],
     featured: false,
+    comingSoon: true,
   },
   {
     id: "5",
@@ -183,37 +186,7 @@ export const projects: Project[] = [
       "NPS score of 78",
     ],
     featured: false,
-  },
-  {
-    id: "6",
-    slug: "terra-spaces",
-    title: "Terra Spaces",
-    subtitle: "Architectural visualization and virtual staging platform",
-    category: "Web Design",
-    tags: ["3D", "WebGL", "Architecture"],
-    year: "2024",
-    client: "Terra Architecture",
-    role: "Creative Director",
-    duration: "7 months",
-    thumbnail:
-      "https://images.unsplash.com/photo-1552835376-89b8cdfacb4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhcmNoaXRlY3R1cmUlMjBidWlsZGluZyUyMG1pbmltYWx8ZW58MXx8fHwxNzcxMTQwMjQ2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    images: [
-      "https://images.unsplash.com/photo-1552835376-89b8cdfacb4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhcmNoaXRlY3R1cmUlMjBidWlsZGluZyUyMG1pbmltYWx8ZW58MXx8fHwxNzcxMTQwMjQ2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      "https://images.unsplash.com/photo-1705909772639-69d68969ab00?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBpbnRlcmlvciUyMGRlc2lnbiUyMHNwYWNlfGVufDF8fHx8MTc3MTIxODU3MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    ],
-    description:
-      "Terra Spaces combines architectural visualization with virtual staging, allowing real estate developers and architects to showcase unbuilt spaces in photorealistic detail.",
-    challenge:
-      "Traditional architectural renders are expensive, time-consuming, and static. Clients wanted interactive, immersive experiences they could share with stakeholders.",
-    solution:
-      "I led the design of an interactive 3D viewing platform with real-time material swapping, lighting controls, and virtual staging capabilities — all accessible through a standard web browser.",
-    results: [
-      "70% faster client approvals",
-      "Reduced rendering costs by 45%",
-      "Used by 200+ architecture firms",
-      "Featured in ArchDaily",
-    ],
-    featured: true,
+    comingSoon: true,
   },
 ];
 
